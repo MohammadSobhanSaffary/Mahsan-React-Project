@@ -2,7 +2,8 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { englishDictionry } from "../translations/en";
 import { persianDictionry } from "../translations/fa";
-import { t } from "i18next";
+// import { t } from "i18next";
+import Navbar from "./components/Navbar";
 function App() {
   // set i18next
   i18n.use(initReactI18next).init({
@@ -22,9 +23,10 @@ function App() {
     },
   });
   return (
-    <>
-      <p className="text-red-600">{t("Salam")}</p>
-    </>
+    <div className="w-full h-screen flex items-center justify-between">
+      <Navbar />
+      <main></main>
+    </div>
   );
 }
 
