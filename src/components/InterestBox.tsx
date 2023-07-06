@@ -20,7 +20,7 @@ function InterestBox(props: any) {
     );
   };
   return (
-    <div className="w-[250px] h-[130px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3">
+    <div className="w-[250px] h-[130px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3 relative">
       <div className="w-full flex items-center justify-between">
         <span className="text-[#A7C9B9] font-semibold text-lg">
           {t("Interest (Select)")}
@@ -36,7 +36,7 @@ function InterestBox(props: any) {
       <div className="w-full flex flex-col items-center">
         <div
           onClick={handleToggle}
-          className="cursor-pointer w-[230px] flex items-center justify-between py-3 px-3 bg-white rounded-3xl"
+          className="cursor-pointer w-[230px] flex items-center justify-between py-2 px-3 bg-white rounded-3xl"
         >
           <span className="text-xs text-gray-500 font-light">
             {t("Select")}
@@ -44,7 +44,7 @@ function InterestBox(props: any) {
           <AiOutlineDown />
         </div>
         {openToggle && (
-          <div className="relative w-[230px]  flex flex-col items-center  cursor-pointer top-0 bg-white rounded-md shadow-md mt-2">
+          <div className="absolute w-[230px]  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md shadow-md mt-2">
             {data.map((el: any, index: number) => {
               return (
                 <div

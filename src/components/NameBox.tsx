@@ -19,7 +19,10 @@ function NameBox(props: any) {
           x
         </button>
       </div>
-      <input className="p-2 w-full pl-3 rouned-3xl" placeholder="Enter value" />
+      <input
+        className="py-2 px-3 w-full  rouned-3xl text-xs "
+        placeholder="Enter value"
+      />
     </div>
   );
 }

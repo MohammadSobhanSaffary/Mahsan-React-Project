@@ -1,6 +1,10 @@
 import { t } from "i18next";
-
+import { useState } from "react";
 function BirthdayBox(props: any) {
+  const [date, setDate] = useState();
+  const iHandleChangeDate = (e: any) => {
+    setDate(e.target.value);
+  };
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Birthday")
@@ -19,11 +23,20 @@ function BirthdayBox(props: any) {
           x
         </button>
       </div>
-      <input
-        className="p-2 pl-3 rouned-3xl w-full cursor-pointer"
-        placeholder="Choose Date Value"
-        type="date"
-      />
+      <div className="w-full bg-white rounded-3xl flex items-center ">
+        <input
+          value={date}
+          onChange={iHandleChangeDate}
+          className="px-3 py-2 rouned-3xl w-[20%] cursor-pointer"
+          type="date"
+        />
+        <span className={[undefined, false, null].includes(date)
+            ?"w-[80%] text-xs text-gray-300 ":"w-[80%] text-xs text-gray-600"}>
+          {[undefined, false, null].includes(date)
+            ? t("Choose Date Value")
+            : date}
+        </span>
+      </div>
     </div>
   );
 }

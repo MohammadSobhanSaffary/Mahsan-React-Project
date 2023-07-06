@@ -4,6 +4,8 @@ import NameBox from "./NameBox";
 import SelectFilters from "./SelectFilters";
 import BirthdayBox from "./BirthdayBox";
 import InterestBox from "./InterestBox";
+import ExactAgeBox from "./ExactAgeBox";
+import BetweenAgeBox from "./BetweenAge";
 function Navbar() {
   const [filters, setFilters] = useState<string[]>([]);
   const addNameFilter = () => {
@@ -22,10 +24,18 @@ function Navbar() {
     );
   };
 
+  const addAgeFilter = () => {
+    setFilters((prev) =>
+      !prev.includes("ExactAge") || !prev.includes("BetweenAge")
+        ? [...prev, "ExactAge", "BetweenAge"]
+        : prev
+    );
+  };
+  const handleClearFilters = () => {
+    setFilters([]);
+  };
   return (
-    <div
-      className="w-[350px] h-full bg-[#F7F7F8] rounded-r-sm shadow-md  p-8 flex flex-col items-center gap-8"
-    >
+    <div className="w-[350px] h-full bg-[#F7F7F8] rounded-r-sm shadow-md  p-8 flex flex-col items-center gap-8">
       <div className="w-full flex items-center gap-4 flex-col">
         <span className="text-xl text-[#BEC1C5] font-semibold self-start">
           {t("Search")}
@@ -43,21 +53,29 @@ function Navbar() {
           addNameFilter={addNameFilter}
           addBirthdayFilter={addBirthdayFilter}
           addInterestFilter={addInterestFilter}
+          addAgeFilter={addAgeFilter}
         />
       </div>
-      <div className="w-full max-h-[400px] flex flex-col items-center gap-5">
+      <div className="w-full max-h-[500px] overflow-y-auto flex flex-col items-center gap-5">
         {filters.map((el: string, index: number) => {
           if (el === "Name") {
             return <NameBox key={el} setFilters={setFilters} />;
           } else if (el === "Birthday") {
             return <BirthdayBox key={el} setFilters={setFilters} />;
           } else if (el === "Interest") {
-            return <InterestBox setFilters={setFilters} />;
+            return <InterestBox key={el} setFilters={setFilters} />;
+          } else if (el === "ExactAge") {
+            return <ExactAgeBox key={el} setFilters={setFilters} />;
+          } else if (el === "BetweenAge") {
+            return <BetweenAgeBox key={el} setFilters={setFilters} />;
           }
         })}
       </div>
       <div className="w-full flex items-center  justify-around">
-        <button className="w-36 text-blue-600 font-semibold text-sm">
+        <button
+          onClick={handleClearFilters}
+          className="w-36 text-blue-600 font-semibold text-sm"
+        >
           {t("Clear Filters")}
         </button>
         <button className="w-28 rounded-3xl text-white font-semibold bg-blue-600 text-sm py-2 px-2">

@@ -20,7 +20,7 @@ function SelectFilters(props: any) {
       {openToggle && (
         <div
           onClick={handleToggle}
-          className="relative w-[230px]  flex flex-col items-center  cursor-pointer top-0 bg-white rounded-md shadow-md mt-2"
+          className="absolute w-[230px]  flex flex-col items-center  cursor-pointer top-[135px] bg-white rounded-md shadow-md mt-2 z-30"
         >
           <span
             onClick={props.addNameFilter}

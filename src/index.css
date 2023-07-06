@@ -32,3 +32,39 @@ button {
 input[type="checkbox"] {
   accent-color: rgb(16, 155, 16);
 }
+input[type="date"]::-webkit-datetime-edit-month-field {
+  -webkit-appearance: none;
+  display: none;
+}
+input[type="date"]::-webkit-datetime-edit-day-field {
+  -webkit-appearance: none;
+  display: none;
+}
+input[type="date"]::-webkit-datetime-edit-year-field {
+  -webkit-appearance: none;
+  display: none;
+}
+input[type="date"]::-webkit-datetime-edit-text {
+  -webkit-appearance: none;
+  display: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
