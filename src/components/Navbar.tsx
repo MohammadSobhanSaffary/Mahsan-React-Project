@@ -93,15 +93,15 @@ function Navbar() {
       <div className="w-full max-h-[500px] overflow-y-auto flex flex-col items-center gap-5">
         {filters.map((el: string, index: number) => {
           if (el === "Name") {
-            return <NameBox key={el} setFilters={setFilters} />;
+            return <NameBox key={index} setFilters={setFilters} />;
           } else if (el === "Birthday") {
-            return <BirthdayBox key={el} setFilters={setFilters} />;
+            return <BirthdayBox key={index} setFilters={setFilters} />;
           } else if (el === "Interest") {
-            return <InterestBox key={el} setFilters={setFilters} />;
+            return <InterestBox key={index} setFilters={setFilters} />;
           } else if (el === "ExactAge") {
-            return <ExactAgeBox key={el} setFilters={setFilters} />;
+            return <ExactAgeBox key={index} setFilters={setFilters} />;
           } else if (el === "BetweenAge") {
-            return <BetweenAgeBox key={el} setFilters={setFilters} />;
+            return <BetweenAgeBox key={index} setFilters={setFilters} />;
           }
         })}
       </div>

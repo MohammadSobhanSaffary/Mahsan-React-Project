@@ -1,5 +1,5 @@
 import { t } from "i18next";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { FilterItemsInterface, appContext } from "../Context";
 function BirthdayBox(props: any) {
   const { setFilterItems, filterItems }: any = useContext(appContext);

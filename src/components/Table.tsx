@@ -30,7 +30,7 @@ function Table() {
                     } `}</span>
                   ))}
                 </td>
-                <td>{el.birth_date}</td>
+                <td>{el.birth_date.toString()}</td>
               </tr>
             );
           })}

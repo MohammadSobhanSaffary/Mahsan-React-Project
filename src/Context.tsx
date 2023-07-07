@@ -8,11 +8,11 @@ export interface FilterItemsInterface {
 }
 export interface SearchDataInterface {
   age: number;
-  birth_date: Date|string;
+  birth_date: Date | string;
   interests: string[];
   name: string;
 }
-export const appContext = createContext();
+export const appContext = createContext({});
 
 function ContextProvider({ children }: any) {
   const [filterItems, setFilterItems] = useState<FilterItemsInterface>({
