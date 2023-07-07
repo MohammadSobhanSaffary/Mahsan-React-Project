@@ -1,15 +1,17 @@
 import { t } from "i18next";
 import { AiOutlineDown } from "react-icons/ai";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { appContext } from "../Context";
 function InterestBox(props: any) {
   const [openToggle, setOpenToggle] = useState(false);
   const [data, setData] = useState([
-    { name: "Football", value: false },
-    { name: "Basketball", value: false },
-    { name: "Online gaming", value: false },
-    { name: "Swimming", value: false },
+    { name: "travel", value: false },
+    { name: "book", value: false },
+    { name: "playstation", value: false },
+    { name: "movie", value: false },
+    { name: "sport", value: false },
   ]);
-
+  const { setFilterItems, filterItems }: any = useContext(appContext);
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);
   };
@@ -19,6 +21,16 @@ function InterestBox(props: any) {
       prev.filter((el: string) => el !== "Interest")
     );
   };
+  useEffect(() => {
+    let interest: string[] = [];
+    data.forEach((el) => {
+      el.value && interest.push(el.name);
+    });
+    setFilterItems((prev: any) => {
+      return { ...prev, interest: interest };
+    });
+    console.log(filterItems, data);
+  }, [data]);
   return (
     <div className="w-[250px] h-[130px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3 relative">
       <div className="w-full flex items-center justify-between">
@@ -44,7 +56,7 @@ function InterestBox(props: any) {
           <AiOutlineDown />
         </div>
         {openToggle && (
-          <div className="absolute w-[230px]  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md shadow-md mt-2">
+          <div className="absolute w-full  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md shadow-md mt-2 z-10">
             {data.map((el: any, index: number) => {
               return (
                 <div

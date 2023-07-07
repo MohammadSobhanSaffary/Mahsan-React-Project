@@ -1,8 +1,11 @@
 import { AiOutlineDown } from "react-icons/ai";
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { t } from "i18next";
+import { FilterItemsInterface, appContext } from "../Context";
 function BetweenAgeBox(props: any) {
   const [openToggle, setOpenToggle] = useState(false);
+  const [ageRange, setAgeRange] = useState<{ age1: number; age2: number }>();
+  const { setFilterItems, filterItems }: any = useContext(appContext);
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "BetweenAge")
@@ -11,6 +14,24 @@ function BetweenAgeBox(props: any) {
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);
   };
+  const addExactAgeBox = () => {
+    props.setFilters((prev: any) => [...prev, "ExactAge"]);
+  };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFilterItems((prev: FilterItemsInterface) => {
+        return {
+          ...prev,
+          range_age: [Number(ageRange?.age1), Number(ageRange?.age2)],
+        };
+      });
+      console.log(filterItems);
+    }, 100);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [ageRange]);
+
   return (
     <div className="relative w-[250px] h-[210px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3">
       <div className="w-full flex items-center justify-between">
@@ -36,9 +57,19 @@ function BetweenAgeBox(props: any) {
             <AiOutlineDown />
           </div>
           {openToggle && (
-            <div className="absolute w-[230px]  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md shadow-md mt-2">
-              <span className={"text-sx"}>{t("Exact")}</span>
-              <span className={"text-sx "}>{t("between")}</span>
+            <div
+              className="absolute w-[230px]  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md shadow-md mt-2"
+              onClick={handleToggle}
+            >
+              <span
+                className="text-xs font-light p-2 self-start"
+                onClick={addExactAgeBox}
+              >
+                {t("Exact")}
+              </span>
+              <span className="text-xs font-light  p-2 self-start">
+                {t("between")}
+              </span>
             </div>
           )}
         </div>
@@ -47,11 +78,21 @@ function BetweenAgeBox(props: any) {
           type="number"
           placeholder="Enter Value 1"
           className="w-full rounded-3xl text-xs font-light py-2 px-3"
+          onChange={(e: any) =>
+            setAgeRange((prev: any) => {
+              return { ...prev, age1: e.target.value };
+            })
+          }
         />
         <input
           type="number"
           placeholder="Enter Value 2"
           className="w-full rounded-3xl text-xs font-light py-2 px-3"
+          onChange={(e: any) =>
+            setAgeRange((prev: any) => {
+              return { ...prev, age2: e.target.value };
+            })
+          }
         />
       </div>
     </div>
