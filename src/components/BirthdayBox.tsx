@@ -18,6 +18,9 @@ function BirthdayBox(props: any) {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Birthday")
     );
+    setFilterItems((prev: FilterItemsInterface) => {
+      return { ...prev, birth_date: "" };
+    });
   };
   // ################ //
   // ##### JSX ##### //

@@ -1,6 +1,10 @@
 import { t } from "i18next";
 import { useState, useContext, useEffect } from "react";
-import { SearchDataInterface, appContext } from "../Context";
+import {
+  FilterItemsInterface,
+  SearchDataInterface,
+  appContext,
+} from "../Context";
 function NameBox(props: any) {
   //#################//
   //#### STATES #####//
@@ -14,6 +18,9 @@ function NameBox(props: any) {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Name")
     );
+    setFilterItems((prev: FilterItemsInterface) => {
+      return { ...prev, name: "" };
+    });
   };
   //##################//
   //#### EFFECTS #####//

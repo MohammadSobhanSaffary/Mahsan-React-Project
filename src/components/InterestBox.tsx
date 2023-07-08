@@ -1,7 +1,7 @@
 import { t } from "i18next";
 import { AiOutlineDown } from "react-icons/ai";
 import { useState, useEffect, useContext } from "react";
-import { appContext } from "../Context";
+import { FilterItemsInterface, appContext } from "../Context";
 function InterestBox(props: any) {
   //#################//
   //#### STATES #####//
@@ -26,6 +26,9 @@ function InterestBox(props: any) {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Interest")
     );
+    setFilterItems((prev: FilterItemsInterface) => {
+      return { ...prev, interests: [] };
+    });
   };
   //##################//
   //#### EFFECTS #####//
@@ -35,7 +38,7 @@ function InterestBox(props: any) {
     data.forEach((el) => {
       el.value && interest.push(el.name);
     });
-    setFilterItems((prev: any) => {
+    setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, interest: interest };
     });
     console.log(filterItems, data);

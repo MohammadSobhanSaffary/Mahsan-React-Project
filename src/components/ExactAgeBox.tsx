@@ -15,6 +15,9 @@ function ExactAgeBox(props: any) {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "ExactAge")
     );
+    setFilterItems((prev: FilterItemsInterface) => {
+      return { ...prev, exact_age: [] };
+    });
   };
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);

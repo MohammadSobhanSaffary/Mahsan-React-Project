@@ -13,6 +13,9 @@ function BetweenAgeBox(props: any) {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "BetweenAge")
     );
+    setFilterItems((prev: FilterItemsInterface) => {
+      return { ...prev, range_age: [] };
+    });
   };
   //#####################//
   //#### HANDELERS #####//
