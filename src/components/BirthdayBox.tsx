@@ -42,7 +42,7 @@ function BirthdayBox(props: any) {
               : "w-[80%] text-xs text-gray-600"
           }
         >
-          {[undefined, false, null].includes(filterItems.birth_date)
+          {[undefined, false, null, ""].includes(filterItems.birth_date)
             ? t("Choose Date Value")
             : filterItems.birth_date}
         </span>

@@ -1,7 +1,7 @@
 import { AiOutlineDown } from "react-icons/ai";
 import { useContext, useState } from "react";
 import { t } from "i18next";
-import { SearchData, appContext } from "../Context";
+import { FilterItemsInterface, appContext } from "../Context";
 function ExactAgeBox(props: any) {
   const [openToggle, setOpenToggle] = useState(false);
   const { setFilterItems }: any = useContext(appContext);
@@ -15,10 +15,12 @@ function ExactAgeBox(props: any) {
     setOpenToggle((prev) => !prev);
   };
   const addBetweenAgeBox = () => {
-    props.setFilters((prev: any) => [...prev, "BetweenAge"]);
+    props.setFilters((prev: any) =>
+      !prev.includes("BetweenAge") ? [...prev, "BetweenAge"] : prev
+    );
   };
   const handleExactAgeChange = (e: any) => {
-    setFilterItems((prev: SearchData) => {
+    setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, exact_age: [e.target.value] };
     });
   };

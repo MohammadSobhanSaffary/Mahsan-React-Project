@@ -56,7 +56,7 @@ function InterestBox(props: any) {
           <AiOutlineDown />
         </div>
         {openToggle && (
-          <div className="absolute w-full  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md shadow-md mt-2 z-10">
+          <div className="absolute w-full  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md  shadow-md mt-2 z-10">
             {data.map((el: any, index: number) => {
               return (
                 <div

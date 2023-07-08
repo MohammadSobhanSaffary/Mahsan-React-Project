@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 const BASE_URL = "http://localhost:5000";
 function Navbar() {
   const [filters, setFilters] = useState<string[]>([]);
+  const [query, setQuery] = useState<string>();
   const { setSearchData, setIsLoading, isLoading, filterItems }: any =
     useContext(appContext);
 
@@ -36,15 +37,22 @@ function Navbar() {
     );
   };
 
-  const addAgeFilter = () => {
-    setFilters((prev) =>
-      !prev.includes("ExactAge") || !prev.includes("BetweenAge")
-        ? [...prev, "ExactAge", "BetweenAge"]
-        : prev
-    );
+  const handleChangeQuery = (e: any) => {
+    setQuery(e.target.value);
   };
+
+  const addAgeFilter = () => {
+    if (!filters.includes("ExactAge")) {
+      setFilters((prev) => [...prev, "ExactAge"]);
+    }
+    if (!filters.includes("BetweenAge")) {
+      setFilters((prev) => [...prev, "BetweenAge"]);
+    }
+  };
+
   const handleClearFilters = () => {
     setFilters([]);
+    setSearchData([]);
   };
   //###############//
   //#### FETCH ####//
@@ -54,7 +62,7 @@ function Navbar() {
       setIsLoading(true);
       const res = await axios.post(`${BASE_URL}/api/v1/search`, {
         filters: filterItems,
-        query: "",
+        query: query,
       });
       setIsLoading(false);
       setSearchData(res.data);
@@ -69,12 +77,12 @@ function Navbar() {
     }
   };
   return (
-    <div className="w-[350px] h-full bg-[#F7F7F8] rounded-r-sm shadow-md  p-8 flex flex-col items-center gap-8">
+    <div className="w-[350px] h-full bg-[#F7F7F8] rounded-r-sm shadow-md  pt-8 px-6 flex flex-col items-center gap-8">
       <div className="w-full flex items-center gap-4 flex-col">
         <span className="text-xl text-[#BEC1C5] font-semibold self-start">
           {t("Search")}
         </span>
-        <input className="w-full px-3 py-2" />
+        <input className="w-[90%] px-3 py-2" onChange={handleChangeQuery} />
       </div>
       <div className="w-full flex items-center gap-4 flex-col mb-5 relative">
         <span className="text-xl text-[#BEC1C5] font-semibold self-start">
@@ -90,7 +98,7 @@ function Navbar() {
           addAgeFilter={addAgeFilter}
         />
       </div>
-      <div className="w-full max-h-[500px] overflow-y-auto flex flex-col items-center gap-5">
+      <div className="w-full h-[70%]  overflow-y-auto flex flex-col items-center gap-5">
         {filters.map((el: string, index: number) => {
           if (el === "Name") {
             return <NameBox key={index} setFilters={setFilters} />;

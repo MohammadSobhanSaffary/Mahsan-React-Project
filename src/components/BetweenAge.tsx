@@ -15,7 +15,9 @@ function BetweenAgeBox(props: any) {
     setOpenToggle((prev) => !prev);
   };
   const addExactAgeBox = () => {
-    props.setFilters((prev: any) => [...prev, "ExactAge"]);
+    props.setFilters((prev: any) =>
+      !prev.includes("ExactAge") ? [...prev, "ExactAge"] : prev
+    );
   };
   useEffect(() => {
     const timeout = setTimeout(() => {
