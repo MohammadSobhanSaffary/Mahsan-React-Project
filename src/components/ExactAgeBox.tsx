@@ -3,9 +3,14 @@ import { useContext, useState } from "react";
 import { t } from "i18next";
 import { FilterItemsInterface, appContext } from "../Context";
 function ExactAgeBox(props: any) {
+  //#################//
+  //#### STATES #####//
+  //#################//
   const [openToggle, setOpenToggle] = useState(false);
   const { setFilterItems }: any = useContext(appContext);
-
+  //#####################//
+  //#### HANDELERS #####//
+  //####################//
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "ExactAge")
@@ -24,6 +29,9 @@ function ExactAgeBox(props: any) {
       return { ...prev, exact_age: [e.target.value] };
     });
   };
+  // ################ //
+  // ##### JSX ##### //
+  // ############### //
   return (
     <div className="relative  w-[250px] h-[150px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3">
       <div className="w-full flex items-center justify-between">

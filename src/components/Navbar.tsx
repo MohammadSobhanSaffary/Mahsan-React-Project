@@ -13,6 +13,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const BASE_URL = "http://localhost:5000";
 function Navbar() {
+  //#################//
+  //#### STATES #####//
+  //#################//
   const [filters, setFilters] = useState<string[]>([]);
   const [query, setQuery] = useState<string>();
   const { setSearchData, setIsLoading, isLoading, filterItems }: any =
@@ -24,7 +27,9 @@ function Navbar() {
   const addNameFilter = () => {
     setFilters((prev) => (!prev.includes("Name") ? [...prev, "Name"] : prev));
   };
-
+  //#####################//
+  //#### HANDELERS #####//
+  //####################//
   const addBirthdayFilter = () => {
     setFilters((prev) =>
       !prev.includes("Birthday") ? [...prev, "Birthday"] : prev
@@ -76,6 +81,9 @@ function Navbar() {
       console.error(err);
     }
   };
+  // ################ //
+  // ##### JSX ##### //
+  // ############### //
   return (
     <div className="w-[350px] h-full bg-[#F7F7F8] rounded-r-sm shadow-md  pt-8 px-6 flex flex-col items-center gap-8">
       <div className="w-full flex items-center gap-4 flex-col">

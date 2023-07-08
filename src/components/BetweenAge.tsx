@@ -3,6 +3,9 @@ import { useContext, useState, useEffect } from "react";
 import { t } from "i18next";
 import { FilterItemsInterface, appContext } from "../Context";
 function BetweenAgeBox(props: any) {
+  //#################//
+  //#### STATES #####//
+  //#################//
   const [openToggle, setOpenToggle] = useState(false);
   const [ageRange, setAgeRange] = useState<{ age1: number; age2: number }>();
   const { setFilterItems, filterItems }: any = useContext(appContext);
@@ -11,6 +14,9 @@ function BetweenAgeBox(props: any) {
       prev.filter((el: string) => el !== "BetweenAge")
     );
   };
+  //#####################//
+  //#### HANDELERS #####//
+  //####################//
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);
   };
@@ -19,6 +25,9 @@ function BetweenAgeBox(props: any) {
       !prev.includes("ExactAge") ? [...prev, "ExactAge"] : prev
     );
   };
+  //##################//
+  //#### EFFECTS #####//
+  //##################//
   useEffect(() => {
     const timeout = setTimeout(() => {
       setFilterItems((prev: FilterItemsInterface) => {
@@ -33,7 +42,9 @@ function BetweenAgeBox(props: any) {
       clearTimeout(timeout);
     };
   }, [ageRange]);
-
+  // ############### //
+  // ##### JSX ##### //
+  // ############### //
   return (
     <div className="relative w-[250px] h-[210px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3">
       <div className="w-full flex items-center justify-between">

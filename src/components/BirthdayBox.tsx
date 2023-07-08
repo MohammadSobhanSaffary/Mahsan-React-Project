@@ -2,19 +2,26 @@ import { t } from "i18next";
 import { useContext } from "react";
 import { FilterItemsInterface, appContext } from "../Context";
 function BirthdayBox(props: any) {
+  //#################//
+  //#### STATES #####//
+  //#################//
   const { setFilterItems, filterItems }: any = useContext(appContext);
   const iHandleChangeDate = (e: any) => {
     setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, birth_date: e.target.value };
     });
-    console.log(filterItems);
   };
+  //#####################//
+  //#### HANDELERS #####//
+  //####################//
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Birthday")
     );
   };
-
+  // ################ //
+  // ##### JSX ##### //
+  // ############### //
   return (
     <div className="w-[250px] h-[130px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3">
       <div className="w-full flex items-center justify-between">

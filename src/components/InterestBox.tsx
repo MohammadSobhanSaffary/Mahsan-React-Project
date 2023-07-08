@@ -3,6 +3,9 @@ import { AiOutlineDown } from "react-icons/ai";
 import { useState, useEffect, useContext } from "react";
 import { appContext } from "../Context";
 function InterestBox(props: any) {
+  //#################//
+  //#### STATES #####//
+  //#################//
   const [openToggle, setOpenToggle] = useState(false);
   const [data, setData] = useState([
     { name: "travel", value: false },
@@ -12,6 +15,9 @@ function InterestBox(props: any) {
     { name: "sport", value: false },
   ]);
   const { setFilterItems, filterItems }: any = useContext(appContext);
+  //#####################//
+  //#### HANDELERS #####//
+  //####################//
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);
   };
@@ -21,6 +27,9 @@ function InterestBox(props: any) {
       prev.filter((el: string) => el !== "Interest")
     );
   };
+  //##################//
+  //#### EFFECTS #####//
+  //##################//
   useEffect(() => {
     let interest: string[] = [];
     data.forEach((el) => {
@@ -31,6 +40,9 @@ function InterestBox(props: any) {
     });
     console.log(filterItems, data);
   }, [data]);
+  // ################ //
+  // ##### JSX ##### //
+  // ############### //
   return (
     <div className="w-[250px] h-[130px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3 relative">
       <div className="w-full flex items-center justify-between">

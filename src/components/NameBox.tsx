@@ -2,13 +2,22 @@ import { t } from "i18next";
 import { useState, useContext, useEffect } from "react";
 import { SearchDataInterface, appContext } from "../Context";
 function NameBox(props: any) {
+  //#################//
+  //#### STATES #####//
+  //#################//
   const [name, setName] = useState<string>();
   const { setFilterItems }: any = useContext(appContext);
+  //#####################//
+  //#### HANDELERS #####//
+  //####################//
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Name")
     );
   };
+  //##################//
+  //#### EFFECTS #####//
+  //##################//
   useEffect(() => {
     const timeOut = setTimeout(() => {
       setFilterItems((prev: SearchDataInterface) => {
@@ -19,7 +28,9 @@ function NameBox(props: any) {
       clearTimeout(timeOut);
     };
   }, [name]);
-
+  // ############### //
+  // ##### JSX ##### //
+  // ############### //
   return (
     <div className="w-[250px] h-[130px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3">
       <div className="w-full flex items-center justify-between">
