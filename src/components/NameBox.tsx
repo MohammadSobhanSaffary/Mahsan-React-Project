@@ -19,7 +19,7 @@ function NameBox(props: any) {
       prev.filter((el: string) => el !== "Name")
     );
     setFilterItems((prev: FilterItemsInterface) => {
-      return { ...prev, name: "" };
+      return { ...prev, name: "" as string };
     });
   };
   //##################//
