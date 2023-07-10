@@ -27,9 +27,7 @@ function Navbar() {
   const addNameFilter = () => {
     setFilters((prev) => (!prev.includes("Name") ? [...prev, "Name"] : prev));
   };
-  //#####################//
-  //#### HANDELERS #####//
-  //####################//
+  
   const addBirthdayFilter = () => {
     setFilters((prev) =>
       !prev.includes("Birthday") ? [...prev, "Birthday"] : prev
