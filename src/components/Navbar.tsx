@@ -71,6 +71,7 @@ function Navbar() {
       });
       setIsLoading(false);
       setSearchData(res.data);
+      console.log(filterItems);
       res.data.length === 0
         ? toast.info(t("Nothing Found"))
         : toast.success(t("Search Completed"));

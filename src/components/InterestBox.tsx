@@ -34,12 +34,12 @@ function InterestBox(props: any) {
   //#### EFFECTS #####//
   //##################//
   useEffect(() => {
-    let interest: string[] = [];
+    let interests: string[] = [];
     data.forEach((el) => {
-      el.value && interest.push(el.name);
+      el.value && interests.push(el.name);
     });
     setFilterItems((prev: FilterItemsInterface) => {
-      return { ...prev, interest: interest };
+      return { ...prev, interests: interests };
     });
     console.log(filterItems, data);
   }, [data]);
