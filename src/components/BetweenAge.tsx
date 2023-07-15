@@ -1,21 +1,37 @@
 import { AiOutlineDown } from "react-icons/ai";
-import { useContext, useState, useEffect, ChangeEvent } from "react";
+import {
+  useContext,
+  useState,
+  useEffect,
+  ChangeEvent,
+  FC,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import { t } from "i18next";
 import { FilterItemsInterface, Values, appContext } from "../Context";
-function BetweenAgeBox(props: any) {
+
+interface AgeRange {
+  age1: string;
+  age2: string;
+}
+interface Props {
+  setFilters: Dispatch<SetStateAction<string[]>>;
+}
+const BetweenAgeBox: FC<Props> = (props) => {
   //#################//
   //#### STATES #####//
   //#################//
 
   const [openToggle, setOpenToggle] = useState(false);
-  const [ageRange, setAgeRange] = useState<{ age1: number; age2: number }>();
+  const [ageRange, setAgeRange] = useState<AgeRange>({ age1: "", age2: "" });
   const contextValues: Values = useContext(appContext);
 
-  //#####################//
-  //##### HANDELERS #####//
-  //#####################//
+  //####################//
+  //##### HANDLERS #####//
+  //####################//
 
-  const handleDelteFilter = () => {
+  const handleDeleteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "BetweenAge")
     );
@@ -28,18 +44,18 @@ function BetweenAgeBox(props: any) {
     setOpenToggle((prev) => !prev);
   };
   const addExactAgeBox = () => {
-    props.setFilters((prev: any) =>
+    props.setFilters((prev: string[]) =>
       !prev.includes("ExactAge") ? [...prev, "ExactAge"] : prev
     );
   };
 
   const handleFromAge = (e: ChangeEvent<HTMLInputElement>) => {
-    setAgeRange((prev: any) => {
+    setAgeRange((prev: AgeRange) => {
       return { ...prev, age1: e.target.value };
     });
   };
   const handleToAge = (e: ChangeEvent<HTMLInputElement>) => {
-    setAgeRange((prev: any) => {
+    setAgeRange((prev: AgeRange) => {
       return { ...prev, age2: e.target.value };
     });
   };
@@ -50,12 +66,17 @@ function BetweenAgeBox(props: any) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       contextValues.setFilterItems((prev: FilterItemsInterface) => {
-        return {
-          ...prev,
-          range_age: [Number(ageRange?.age1), Number(ageRange?.age2)],
-        };
+        if (ageRange?.age1 !== "" && ageRange?.age2 !== "")
+          return {
+            ...prev,
+            range_age:
+              ageRange?.age1 !== undefined && ageRange?.age2 !== undefined
+                ? [+ageRange?.age1, +ageRange?.age2]
+                : [],
+          };
+        return { ...prev, range_age: [] };
       });
-    }, 100);
+    }, 10);
     return () => {
       clearTimeout(timeout);
     };
@@ -71,7 +92,7 @@ function BetweenAgeBox(props: any) {
         </span>
         <button
           className="text-[#AEB2B1] text-xl font-semibold"
-          onClick={handleDelteFilter}
+          onClick={handleDeleteFilter}
         >
           x
         </button>
@@ -120,6 +141,6 @@ function BetweenAgeBox(props: any) {
       </div>
     </div>
   );
-}
+};
 
 export default BetweenAgeBox;

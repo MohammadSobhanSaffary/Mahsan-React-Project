@@ -1,9 +1,9 @@
-import { appContext } from "../Context";
+import { Values, appContext } from "../Context";
 import { useContext } from "react";
 import { SearchDataInterface } from "../Context";
 import { t } from "i18next";
 function Table() {
-  const { searchData }: any = useContext(appContext);
+  const contextValues: Values = useContext(appContext);
   return (
     <div className="w-[90%] h-[700px] overflow-y-auto">
       <table>
@@ -17,23 +17,25 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {searchData.map((el: SearchDataInterface, index: number) => {
-            return (
-              <tr key={index}>
-                <td>{el.name.split(" ")[0]}</td>
-                <td>{el.name.split(" ")[1]}</td>
-                <td>{el.age}</td>
-                <td>
-                  {el.interests.map((interest: string, index: number) => (
-                    <span>{`${interest} ${
-                      index !== el.interests.length - 1 ? "," : ""
-                    } `}</span>
-                  ))}
-                </td>
-                <td>{el.birth_date.toString()}</td>
-              </tr>
-            );
-          })}
+          {contextValues.searchData.map(
+            (el: SearchDataInterface, index: number) => {
+              return (
+                <tr key={index}>
+                  <td>{el.name.split(" ")[0]}</td>
+                  <td>{el.name.split(" ")[1]}</td>
+                  <td>{el.age}</td>
+                  <td>
+                    {el.interests.map((interest: string, index: number) => (
+                      <span>{`${interest} ${
+                        index !== el.interests.length - 1 ? "," : ""
+                      } `}</span>
+                    ))}
+                  </td>
+                  <td>{el.birth_date.toString()}</td>
+                </tr>
+              );
+            }
+          )}
         </tbody>
       </table>{" "}
     </div>

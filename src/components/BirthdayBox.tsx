@@ -1,21 +1,27 @@
 import { t } from "i18next";
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from "react";
 import { FilterItemsInterface, Values, appContext } from "../Context";
-function BirthdayBox(props: any) {
+
+interface Props {
+  setFilters: Dispatch<SetStateAction<string[]>>;
+}
+
+const BirthdayBox: FC<Props> = (props) => {
   //#################//
   //#### STATES #####//
   //#################//
-  const { setFilterItems, filterItems }: any = useContext(appContext);
   const contextValues: Values = useContext(appContext);
-  //#####################//
-  //#### HANDELERS #####//
-  //####################//
-  const iHandleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
-    setFilterItems((prev: FilterItemsInterface) => {
+
+  //##################//
+  //#### HANDLER #####//
+  //##################//
+
+  const handleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
+    contextValues.setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, birth_date: e.target.value };
     });
   };
-  const handleDelteFilter = () => {
+  const handleDeleteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Birthday")
     );
@@ -23,6 +29,7 @@ function BirthdayBox(props: any) {
       return { ...prev, birth_date: "" };
     });
   };
+
   // ################ //
   // ##### JSX ##### //
   // ############### //
@@ -34,7 +41,7 @@ function BirthdayBox(props: any) {
         </span>
         <button
           className="text-[#AEB2B1] text-xl font-semibold"
-          onClick={handleDelteFilter}
+          onClick={handleDeleteFilter}
         >
           x
         </button>
@@ -42,7 +49,7 @@ function BirthdayBox(props: any) {
       <div className="w-full bg-white rounded-3xl flex items-center ">
         <input
           value={contextValues.filterItems.birth_date as string}
-          onChange={iHandleChangeDate}
+          onChange={handleChangeDate}
           className="px-3 py-2 rouned-3xl w-[20%] cursor-pointer"
           type="date"
         />
@@ -55,11 +62,11 @@ function BirthdayBox(props: any) {
         >
           {contextValues.filterItems.birth_date === ""
             ? t("Choose Date Value")
-            : filterItems.birth_date}
+            : (contextValues?.filterItems.birth_date as string)}
         </span>
       </div>
     </div>
   );
-}
+};
 
 export default BirthdayBox;

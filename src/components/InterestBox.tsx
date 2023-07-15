@@ -21,7 +21,7 @@ function InterestBox(props: Props) {
   ]);
   const contextValues: Values = useContext(appContext);
   //#####################//
-  //#### HANDELERS #####//
+  //#### HANDLERS #####//
   //####################//
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);

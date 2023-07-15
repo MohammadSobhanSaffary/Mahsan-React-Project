@@ -12,10 +12,10 @@ function ExactAgeBox(props: Props) {
   const contextValues: Values = useContext(appContext);
 
   //#####################//
-  //#### HANDELERS #####//
+  //#### HANDLERS #####//
   //####################//
 
-  const handleDelteFilter = () => {
+  const handleDeleteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "ExactAge")
     );
@@ -34,7 +34,10 @@ function ExactAgeBox(props: Props) {
   };
   const handleExactAgeChange = (e: ChangeEvent<HTMLInputElement>) => {
     contextValues.setFilterItems((prev: FilterItemsInterface) => {
-      return { ...prev, exact_age: [+e.target.value] };
+      if (e.target.value !== "") {
+        return { ...prev, exact_age: [+e.target.value] };
+      }
+      return { ...prev, exact_age: [] };
     });
   };
   // ################ //
@@ -48,7 +51,7 @@ function ExactAgeBox(props: Props) {
         </span>
         <button
           className="text-[#AEB2B1] text-xl font-semibold"
-          onClick={handleDelteFilter}
+          onClick={handleDeleteFilter}
         >
           x
         </button>

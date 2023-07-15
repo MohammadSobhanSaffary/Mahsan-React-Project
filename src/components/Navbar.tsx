@@ -1,5 +1,10 @@
 import { t } from "i18next";
-import { useState, useContext } from "react";
+import {
+  useState,
+  useContext,
+  FC,
+  ChangeEvent,
+} from "react";
 import NameBox from "./NameBox";
 import SelectFilters from "./SelectFilters";
 import BirthdayBox from "./BirthdayBox";
@@ -12,8 +17,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const BASE_URL = "http://localhost:5000";
-function Navbar() {
-
+const Navbar: FC = () => {
   //#################//
   //#### STATES #####//
   //#################//
@@ -23,7 +27,7 @@ function Navbar() {
   const contextValues: Values = useContext(appContext);
 
   //#####################//
-  //#### HANDELERS #####//
+  //#### HANDLERS #####//
   //####################//
 
   const addNameFilter = () => {
@@ -42,7 +46,7 @@ function Navbar() {
     );
   };
 
-  const handleChangeQuery = (e: any) => {
+  const handleChangeQuery = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
 
@@ -94,7 +98,7 @@ function Navbar() {
   // ################ //
   // ##### JSX ##### //
   // ############### //
-  
+
   return (
     <div className="w-[350px] h-full bg-[#F7F7F8] rounded-r-sm shadow-md  pt-8 px-6 flex flex-col items-center gap-8">
       <div className="w-full flex items-center gap-4 flex-col">
@@ -151,7 +155,7 @@ function Navbar() {
         </button>
       </div>
       <ToastContainer
-        position="top-center"
+        position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -164,6 +168,6 @@ function Navbar() {
       />
     </div>
   );
-}
+};
 
 export default Navbar;

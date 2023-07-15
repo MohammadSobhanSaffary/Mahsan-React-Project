@@ -1,7 +1,7 @@
 import React, { SetStateAction, createContext, useState } from "react";
 export interface FilterItemsInterface {
   exact_age: number[] | [];
-  range_age: number[] | [];
+  range_age: number[] | null[]|[];
   birth_date: Date | string | undefined;
   interests: string[];
   name: string;

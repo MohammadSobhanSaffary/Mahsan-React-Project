@@ -22,7 +22,7 @@ function NameBox(props: Props) {
   const contextValues: Values = useContext(appContext);
   const [inputName, setInputName] = useState<string>("");
   //#####################//
-  //#### HANDELERS #####//
+  //#### HANDLERS #####//
   //####################//
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
