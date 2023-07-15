@@ -1,8 +1,13 @@
 import { t } from "i18next";
 import { AiOutlineDown } from "react-icons/ai";
 import { useState, useEffect, useContext } from "react";
-import { FilterItemsInterface, appContext } from "../Context";
-function InterestBox(props: any) {
+import { FilterItemsInterface, Values, appContext } from "../Context";
+import { Props } from "./NameBox";
+interface Interest {
+  name: string;
+  value: boolean;
+}
+function InterestBox(props: Props) {
   //#################//
   //#### STATES #####//
   //#################//
@@ -14,7 +19,7 @@ function InterestBox(props: any) {
     { name: "movie", value: false },
     { name: "sport", value: false },
   ]);
-  const { setFilterItems, filterItems }: any = useContext(appContext);
+  const contextValues: Values = useContext(appContext);
   //#####################//
   //#### HANDELERS #####//
   //####################//
@@ -26,7 +31,7 @@ function InterestBox(props: any) {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Interest")
     );
-    setFilterItems((prev: FilterItemsInterface) => {
+    contextValues.setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, interests: [] };
     });
   };
@@ -38,14 +43,13 @@ function InterestBox(props: any) {
     data.forEach((el) => {
       el.value && interests.push(el.name);
     });
-    setFilterItems((prev: FilterItemsInterface) => {
+    contextValues.setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, interests: interests };
     });
-    console.log(filterItems, data);
   }, [data]);
   // ################ //
-  // ##### JSX ##### //
-  // ############### //
+  // ##### JSX ###### //
+  // ################ //
   return (
     <div className="w-[250px] h-[130px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3 relative">
       <div className="w-full flex items-center justify-between">
@@ -72,7 +76,7 @@ function InterestBox(props: any) {
         </div>
         {openToggle && (
           <div className="absolute w-full  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md  shadow-md mt-2 z-10">
-            {data.map((el: any, index: number) => {
+            {data.map((el: Interest, index: number) => {
               return (
                 <div
                   className={
@@ -84,12 +88,12 @@ function InterestBox(props: any) {
                   <input
                     type="checkbox"
                     name={el.name}
-                    value={el.value}
+                    value={el.name}
                     checked={el.value}
                     className=""
                     onChange={() => {
-                      setData((prev: any) =>
-                        prev.map((element: any) => {
+                      setData((prev: Interest[]) =>
+                        prev.map((element: Interest) => {
                           if (element.name === el.name)
                             return { ...element, value: !element.value };
                           else return element;

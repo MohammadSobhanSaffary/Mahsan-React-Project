@@ -5,10 +5,10 @@ import { persianDictionry } from "../translations/fa";
 import Navbar from "./components/Navbar";
 import Table from "./components/Table";
 import { useContext } from "react";
-import { appContext } from "./Context";
+import { Values, appContext } from "./Context";
 
 function App() {
-  const { searchData }: any = useContext(appContext);
+  const contextValues: Values = useContext(appContext);
   i18n.use(initReactI18next).init({
     resources: {
       en: {
@@ -30,7 +30,7 @@ function App() {
     <div className="w-full h-screen flex items-center justify-between">
       <Navbar />
       <main className="w-[70%] flex flex-col items-center justify-center gap-5">
-        {searchData.length === 0 ? <></> : <Table />}
+        {contextValues.searchData.length === 0 ? <></> : <Table />}
       </main>
     </div>
   );

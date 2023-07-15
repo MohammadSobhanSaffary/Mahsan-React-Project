@@ -2,10 +2,10 @@ from datetime import date
 
 from flask import Flask, request, jsonify
 from flasgger import Swagger
-
+from flask_cors import CORS
 app = Flask(__name__)
 swagger = Swagger(app)
-
+CORS(app)
 
 interests_options = ['sport', 'movie', 'book', 'playstation', 'travel']
 

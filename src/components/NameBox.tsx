@@ -1,16 +1,26 @@
 import { t } from "i18next";
-import { useState, useContext, useEffect } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+  ChangeEvent,
+} from "react";
 import {
   FilterItemsInterface,
-  SearchDataInterface,
+  Values,
   appContext,
 } from "../Context";
-function NameBox(props: any) {
+export interface Props {
+  setFilters: Dispatch<SetStateAction<string[]>>;
+}
+function NameBox(props: Props) {
   //#################//
   //#### STATES #####//
   //#################//
-  const [name, setName] = useState<string>();
-  const { setFilterItems }: any = useContext(appContext);
+  const contextValues: Values = useContext(appContext);
+  const [inputName, setInputName] = useState<string>("");
   //#####################//
   //#### HANDELERS #####//
   //####################//
@@ -18,23 +28,26 @@ function NameBox(props: any) {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Name")
     );
-    setFilterItems((prev: FilterItemsInterface) => {
+    contextValues.setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, name: "" as string };
     });
+  };
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputName(e.target.value);
   };
   //##################//
   //#### EFFECTS #####//
   //##################//
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      setFilterItems((prev: SearchDataInterface) => {
-        return { ...prev, name: name };
+      contextValues.setFilterItems((prev: FilterItemsInterface) => {
+        return { ...prev, name: inputName };
       });
-    }, 100);
+    }, 10);
     return () => {
       clearTimeout(timeOut);
     };
-  }, [name]);
+  }, [inputName]);
   // ############### //
   // ##### JSX ##### //
   // ############### //
@@ -54,9 +67,7 @@ function NameBox(props: any) {
       <input
         className="py-2 px-3 w-full  rouned-3xl text-xs "
         placeholder="Enter value"
-        onChange={(e: any) => {
-          setName(e.target.value);
-        }}
+        onChange={handleInputChange}
       />
     </div>
   );

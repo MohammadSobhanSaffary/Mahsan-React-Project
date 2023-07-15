@@ -1,25 +1,29 @@
 import { AiOutlineDown } from "react-icons/ai";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, ChangeEvent } from "react";
 import { t } from "i18next";
-import { FilterItemsInterface, appContext } from "../Context";
+import { FilterItemsInterface, Values, appContext } from "../Context";
 function BetweenAgeBox(props: any) {
   //#################//
   //#### STATES #####//
   //#################//
+
   const [openToggle, setOpenToggle] = useState(false);
   const [ageRange, setAgeRange] = useState<{ age1: number; age2: number }>();
-  const { setFilterItems, filterItems }: any = useContext(appContext);
+  const contextValues: Values = useContext(appContext);
+
+  //#####################//
+  //##### HANDELERS #####//
+  //#####################//
+
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "BetweenAge")
     );
-    setFilterItems((prev: FilterItemsInterface) => {
+    contextValues.setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, range_age: [] };
     });
   };
-  //#####################//
-  //#### HANDELERS #####//
-  //####################//
+
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);
   };
@@ -28,18 +32,29 @@ function BetweenAgeBox(props: any) {
       !prev.includes("ExactAge") ? [...prev, "ExactAge"] : prev
     );
   };
+
+  const handleFromAge = (e: ChangeEvent<HTMLInputElement>) => {
+    setAgeRange((prev: any) => {
+      return { ...prev, age1: e.target.value };
+    });
+  };
+  const handleToAge = (e: ChangeEvent<HTMLInputElement>) => {
+    setAgeRange((prev: any) => {
+      return { ...prev, age2: e.target.value };
+    });
+  };
+
   //##################//
   //#### EFFECTS #####//
   //##################//
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setFilterItems((prev: FilterItemsInterface) => {
+      contextValues.setFilterItems((prev: FilterItemsInterface) => {
         return {
           ...prev,
           range_age: [Number(ageRange?.age1), Number(ageRange?.age2)],
         };
       });
-      console.log(filterItems);
     }, 100);
     return () => {
       clearTimeout(timeout);
@@ -94,21 +109,13 @@ function BetweenAgeBox(props: any) {
           type="number"
           placeholder="Enter Value 1"
           className="w-full rounded-3xl text-xs font-light py-2 px-3"
-          onChange={(e: any) =>
-            setAgeRange((prev: any) => {
-              return { ...prev, age1: e.target.value };
-            })
-          }
+          onChange={handleFromAge}
         />
         <input
           type="number"
           placeholder="Enter Value 2"
           className="w-full rounded-3xl text-xs font-light py-2 px-3"
-          onChange={(e: any) =>
-            setAgeRange((prev: any) => {
-              return { ...prev, age2: e.target.value };
-            })
-          }
+          onChange={handleToAge}
         />
       </div>
     </div>

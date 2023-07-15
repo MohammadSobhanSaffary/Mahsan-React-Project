@@ -7,29 +7,29 @@ import InterestBox from "./InterestBox";
 import ExactAgeBox from "./ExactAgeBox";
 import BetweenAgeBox from "./BetweenAge";
 import { ToastContainer } from "react-toastify";
-import { appContext } from "../Context";
+import { Values, appContext } from "../Context";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const BASE_URL = "http://localhost:5000";
 function Navbar() {
+
   //#################//
   //#### STATES #####//
   //#################//
+
   const [filters, setFilters] = useState<string[]>([]);
   const [query, setQuery] = useState<string>();
-  const { setSearchData, setIsLoading, isLoading, filterItems }: any =
-    useContext(appContext);
+  const contextValues: Values = useContext(appContext);
 
-  //###################//
-  //#### HANDELERS ####//
-  //###################//
-  const addNameFilter = () => {
-    setFilters((prev) => (!prev.includes("Name") ? [...prev, "Name"] : prev));
-  };
   //#####################//
   //#### HANDELERS #####//
   //####################//
+
+  const addNameFilter = () => {
+    setFilters((prev) => (!prev.includes("Name") ? [...prev, "Name"] : prev));
+  };
+
   const addBirthdayFilter = () => {
     setFilters((prev) =>
       !prev.includes("Birthday") ? [...prev, "Birthday"] : prev
@@ -57,34 +57,44 @@ function Navbar() {
 
   const handleClearFilters = () => {
     setFilters([]);
-    setSearchData([]);
+    contextValues.setSearchData([]);
+    contextValues.setFilterItems({
+      birth_date: "",
+      exact_age: [],
+      range_age: [],
+      interests: [],
+      name: "",
+    });
   };
+
   //###############//
   //#### FETCH ####//
   //###############//
+
   const SearchRequest = async () => {
     try {
-      setIsLoading(true);
+      contextValues.setIsLoading(true);
       const res = await axios.post(`${BASE_URL}/api/v1/search`, {
-        filters: filterItems,
+        filters: contextValues.filterItems,
         query: query,
       });
-      setIsLoading(false);
-      setSearchData(res.data);
-      console.log(filterItems);
+      contextValues.setIsLoading(false);
+      contextValues.setSearchData(res.data);
       res.data.length === 0
         ? toast.info(t("Nothing Found"))
         : toast.success(t("Search Completed"));
       console.log(res.data);
     } catch (err: any) {
-      setIsLoading(false);
+      contextValues.setIsLoading(false);
       toast.error(err.message);
       console.error(err);
     }
   };
+
   // ################ //
   // ##### JSX ##### //
   // ############### //
+  
   return (
     <div className="w-[350px] h-full bg-[#F7F7F8] rounded-r-sm shadow-md  pt-8 px-6 flex flex-col items-center gap-8">
       <div className="w-full flex items-center gap-4 flex-col">
@@ -124,16 +134,16 @@ function Navbar() {
       </div>
       <div className="w-full flex items-center  justify-around">
         <button
-          disabled={isLoading}
+          disabled={contextValues.isLoading}
           onClick={handleClearFilters}
-          className="w-36 text-blue-600 font-semibold text-sm"
+          className="w-28 text-blue-600 font-semibold text-sm"
         >
           {t("Clear Filters")}
         </button>
         <button
-          disabled={isLoading}
+          disabled={contextValues.isLoading}
           className={`${
-            isLoading ? "bg-gray-400" : "bg-blue-600"
+            contextValues.isLoading ? "bg-gray-400" : "bg-blue-600"
           } w-28 rounded-3xl text-white font-semibold  text-sm py-2 px-2 `}
           onClick={SearchRequest}
         >

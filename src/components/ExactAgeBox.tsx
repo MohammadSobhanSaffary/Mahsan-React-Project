@@ -1,35 +1,40 @@
 import { AiOutlineDown } from "react-icons/ai";
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { t } from "i18next";
-import { FilterItemsInterface, appContext } from "../Context";
-function ExactAgeBox(props: any) {
+import { FilterItemsInterface, Values, appContext } from "../Context";
+import { Props } from "./NameBox";
+function ExactAgeBox(props: Props) {
   //#################//
   //#### STATES #####//
   //#################//
+
   const [openToggle, setOpenToggle] = useState(false);
-  const { setFilterItems }: any = useContext(appContext);
+  const contextValues: Values = useContext(appContext);
+
   //#####################//
   //#### HANDELERS #####//
   //####################//
+
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "ExactAge")
     );
-    setFilterItems((prev: FilterItemsInterface) => {
+    contextValues.setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, exact_age: [] };
     });
   };
+
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);
   };
   const addBetweenAgeBox = () => {
-    props.setFilters((prev: any) =>
+    props.setFilters((prev: string[]) =>
       !prev.includes("BetweenAge") ? [...prev, "BetweenAge"] : prev
     );
   };
-  const handleExactAgeChange = (e: any) => {
-    setFilterItems((prev: FilterItemsInterface) => {
-      return { ...prev, exact_age: [e.target.value] };
+  const handleExactAgeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    contextValues.setFilterItems((prev: FilterItemsInterface) => {
+      return { ...prev, exact_age: [+e.target.value] };
     });
   };
   // ################ //

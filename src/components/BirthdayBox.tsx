@@ -1,24 +1,25 @@
 import { t } from "i18next";
-import { useContext } from "react";
-import { FilterItemsInterface, appContext } from "../Context";
+import { ChangeEvent, useContext } from "react";
+import { FilterItemsInterface, Values, appContext } from "../Context";
 function BirthdayBox(props: any) {
   //#################//
   //#### STATES #####//
   //#################//
   const { setFilterItems, filterItems }: any = useContext(appContext);
-  const iHandleChangeDate = (e: any) => {
+  const contextValues: Values = useContext(appContext);
+  //#####################//
+  //#### HANDELERS #####//
+  //####################//
+  const iHandleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, birth_date: e.target.value };
     });
   };
-  //#####################//
-  //#### HANDELERS #####//
-  //####################//
   const handleDelteFilter = () => {
     props.setFilters((prev: string[]) =>
       prev.filter((el: string) => el !== "Birthday")
     );
-    setFilterItems((prev: FilterItemsInterface) => {
+    contextValues.setFilterItems((prev: FilterItemsInterface) => {
       return { ...prev, birth_date: "" };
     });
   };
@@ -40,19 +41,19 @@ function BirthdayBox(props: any) {
       </div>
       <div className="w-full bg-white rounded-3xl flex items-center ">
         <input
-          value={filterItems.birth_date}
+          value={contextValues.filterItems.birth_date as string}
           onChange={iHandleChangeDate}
           className="px-3 py-2 rouned-3xl w-[20%] cursor-pointer"
           type="date"
         />
         <span
           className={
-            [undefined, false, null].includes(filterItems.birth_date)
+            contextValues.filterItems.birth_date === ""
               ? "w-[80%] text-xs text-gray-300 "
               : "w-[80%] text-xs text-gray-600"
           }
         >
-          {[undefined, false, null, ""].includes(filterItems.birth_date)
+          {contextValues.filterItems.birth_date === ""
             ? t("Choose Date Value")
             : filterItems.birth_date}
         </span>

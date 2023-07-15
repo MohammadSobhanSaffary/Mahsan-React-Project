@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
+import React, { SetStateAction, createContext, useState } from "react";
 export interface FilterItemsInterface {
   exact_age: number[] | [];
   range_age: number[] | [];
-  birth_date: Date | "";
+  birth_date: Date | string | undefined;
   interests: string[];
   name: string;
 }
@@ -12,9 +12,17 @@ export interface SearchDataInterface {
   interests: string[];
   name: string;
 }
-export const appContext = createContext({});
+export interface Values {
+  filterItems: FilterItemsInterface;
+  setFilterItems: React.Dispatch<SetStateAction<FilterItemsInterface>>;
+  searchData: SearchDataInterface[];
+  setSearchData: React.Dispatch<SetStateAction<SearchDataInterface[]>>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<SetStateAction<boolean>>;
+}
+export const appContext = createContext<Values>({} as Values);
 
-function ContextProvider({ children }: any) {
+const ContextProvider: React.FC<{children:React.ReactNode}> = (props) => {
   const [filterItems, setFilterItems] = useState<FilterItemsInterface>({
     birth_date: "",
     exact_age: [],
@@ -35,8 +43,8 @@ function ContextProvider({ children }: any) {
         setIsLoading,
       }}
     >
-      {children}
+      {props.children}
     </appContext.Provider>
   );
-}
+};
 export default ContextProvider;
