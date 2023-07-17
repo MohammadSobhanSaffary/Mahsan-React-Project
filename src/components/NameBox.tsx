@@ -6,16 +6,14 @@ import {
   useEffect,
   useState,
   ChangeEvent,
+  FC,
 } from "react";
-import {
-  FilterItemsInterface,
-  Values,
-  appContext,
-} from "../Context";
+import { FilterItemsInterface, Values, appContext } from "../Context";
 export interface Props {
   setFilters: Dispatch<SetStateAction<string[]>>;
 }
-function NameBox(props: Props) {
+
+const NameBox: FC<Props> = (props) => {
   //#################//
   //#### STATES #####//
   //#################//
@@ -71,6 +69,6 @@ function NameBox(props: Props) {
       />
     </div>
   );
-}
+};
 
 export default NameBox;

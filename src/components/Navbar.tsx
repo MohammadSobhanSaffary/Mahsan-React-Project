@@ -26,9 +26,9 @@ const Navbar: FC = () => {
   const [query, setQuery] = useState<string>();
   const contextValues: Values = useContext(appContext);
 
-  //#####################//
-  //#### HANDLERS #####//
   //####################//
+  //#### HANDLERS #####//
+  //###################//
 
   const addNameFilter = () => {
     setFilters((prev) => (!prev.includes("Name") ? [...prev, "Name"] : prev));

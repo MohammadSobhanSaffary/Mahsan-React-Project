@@ -1,13 +1,14 @@
 import { t } from "i18next";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { AiOutlineDown } from "react-icons/ai";
-interface Props{
-  addNameFilter:()=>void;
-  addAgeFilter:()=>void;
-  addInterestFilter:()=>void;
-  addBirthdayFilter:()=>void;
+interface Props {
+  addNameFilter: () => void;
+  addAgeFilter: () => void;
+  addInterestFilter: () => void;
+  addBirthdayFilter: () => void;
 }
-function SelectFilters(props:Props) {
+
+const SelectFilters: FC<Props> = (props) => {
   const [openToggle, setOpenToggle] = useState(false);
   const handleToggle = () => {
     setOpenToggle((prev) => !prev);
@@ -56,6 +57,6 @@ function SelectFilters(props:Props) {
       )}
     </div>
   );
-}
+};
 
 export default SelectFilters;

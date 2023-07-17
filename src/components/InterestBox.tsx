@@ -1,13 +1,13 @@
 import { t } from "i18next";
 import { AiOutlineDown } from "react-icons/ai";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, FC } from "react";
 import { FilterItemsInterface, Values, appContext } from "../Context";
 import { Props } from "./NameBox";
 interface Interest {
   name: string;
   value: boolean;
 }
-function InterestBox(props: Props) {
+const  InterestBox:FC<Props>=(props)=> {
   //#################//
   //#### STATES #####//
   //#################//
@@ -35,6 +35,10 @@ function InterestBox(props: Props) {
       return { ...prev, interests: [] };
     });
   };
+
+  const handleCloseWithClickOnBox = () => {
+    openToggle ? setOpenToggle(false) : null;
+  };
   //##################//
   //#### EFFECTS #####//
   //##################//
@@ -52,7 +56,10 @@ function InterestBox(props: Props) {
   // ################ //
   return (
     <div className="w-[250px] h-[130px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3 relative">
-      <div className="w-full flex items-center justify-between">
+      <div
+        className="w-full flex items-center justify-between"
+        onClick={handleCloseWithClickOnBox}
+      >
         <span className="text-[#A7C9B9] font-semibold text-lg">
           {t("Interest (Select)")}
         </span>
@@ -75,7 +82,7 @@ function InterestBox(props: Props) {
           <AiOutlineDown />
         </div>
         {openToggle && (
-          <div className="absolute w-full  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md  shadow-md mt-2 z-10">
+          <div className="absolute w-full  flex flex-col items-center  cursor-pointer top-[100px] bg-white rounded-md  shadow-md mt-2 z-20">
             {data.map((el: Interest, index: number) => {
               return (
                 <div
@@ -90,7 +97,7 @@ function InterestBox(props: Props) {
                     name={el.name}
                     value={el.name}
                     checked={el.value}
-                    className=""
+                    className="cursor-pointer"
                     onChange={() => {
                       setData((prev: Interest[]) =>
                         prev.map((element: Interest) => {

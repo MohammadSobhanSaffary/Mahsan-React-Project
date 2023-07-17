@@ -1,19 +1,25 @@
 import { Values, appContext } from "../Context";
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { SearchDataInterface } from "../Context";
 import { t } from "i18next";
-function Table() {
+
+const Table: FC = () => {
   const contextValues: Values = useContext(appContext);
+  const tableHeadItems: string[] = [
+    "Name",
+    "Family",
+    "Age",
+    "Interests",
+    "Birthday",
+  ];
   return (
     <div className="w-[90%] h-[700px] overflow-y-auto">
       <table>
-        <thead>
-          <tr className="sticky top-0">
-            <th>{t("Name")}</th>
-            <th>{t("Family")}</th>
-            <th>{t("Age")}</th>
-            <th>{t("Interests")}</th>
-            <th>{t("Birthday")}</th>
+        <thead className="sticky top-0">
+          <tr>
+            {tableHeadItems.map((item: string) => (
+              <th>{t(item)}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -40,6 +46,6 @@ function Table() {
       </table>{" "}
     </div>
   );
-}
+};
 
 export default Table;

@@ -4,10 +4,10 @@ import { englishDictionry } from "../translations/en";
 import { persianDictionry } from "../translations/fa";
 import Navbar from "./components/Navbar";
 import Table from "./components/Table";
-import { useContext } from "react";
+import { useContext, FC } from "react";
 import { Values, appContext } from "./Context";
 
-function App() {
+const App: FC = () => {
   const contextValues: Values = useContext(appContext);
   i18n.use(initReactI18next).init({
     resources: {
@@ -34,6 +34,6 @@ function App() {
       </main>
     </div>
   );
-}
+};
 
 export default App;

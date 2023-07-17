@@ -60,6 +60,10 @@ const BetweenAgeBox: FC<Props> = (props) => {
     });
   };
 
+  const handleCloseWithClickOnBox = () => {
+    openToggle ? setOpenToggle(false) : null;
+  };
+
   //##################//
   //#### EFFECTS #####//
   //##################//
@@ -85,7 +89,10 @@ const BetweenAgeBox: FC<Props> = (props) => {
   // ##### JSX ##### //
   // ############### //
   return (
-    <div className="relative w-[250px] h-[210px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3">
+    <div
+      className="relative w-[250px] h-[210px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3"
+      onClick={handleCloseWithClickOnBox}
+    >
       <div className="w-full flex items-center justify-between">
         <span className="text-[#A7C9B9] font-semibold text-lg">
           {t("Age (Number)")}

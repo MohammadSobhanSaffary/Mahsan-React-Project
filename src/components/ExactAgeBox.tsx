@@ -1,9 +1,11 @@
 import { AiOutlineDown } from "react-icons/ai";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, FC, useContext, useState } from "react";
 import { t } from "i18next";
 import { FilterItemsInterface, Values, appContext } from "../Context";
 import { Props } from "./NameBox";
-function ExactAgeBox(props: Props) {
+
+const ExactAgeBox: FC<Props> = (props) => {
+  
   //#################//
   //#### STATES #####//
   //#################//
@@ -40,11 +42,19 @@ function ExactAgeBox(props: Props) {
       return { ...prev, exact_age: [] };
     });
   };
+
+  const handleCloseWithClickOnBox = () => {
+    openToggle ? setOpenToggle(false) : null;
+  };
+
   // ################ //
   // ##### JSX ##### //
   // ############### //
   return (
-    <div className="relative  w-[250px] h-[150px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3">
+    <div
+      className="relative  w-[250px] h-[150px] rounded-lg bg-[#E9F3F0] flex flex-col items-center  gap-5 p-3"
+      onClick={handleCloseWithClickOnBox}
+    >
       <div className="w-full flex items-center justify-between">
         <span className="text-[#A7C9B9] font-semibold text-lg">
           {t("Age (Number)")}
@@ -95,6 +105,6 @@ function ExactAgeBox(props: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default ExactAgeBox;

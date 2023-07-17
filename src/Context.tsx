@@ -1,7 +1,7 @@
-import React, { SetStateAction, createContext, useState } from "react";
+import React, { SetStateAction, createContext, useState, FC } from "react";
 export interface FilterItemsInterface {
   exact_age: number[] | [];
-  range_age: number[] | null[]|[];
+  range_age: number[] | null[] | [];
   birth_date: Date | string | undefined;
   interests: string[];
   name: string;
@@ -22,7 +22,7 @@ export interface Values {
 }
 export const appContext = createContext<Values>({} as Values);
 
-const ContextProvider: React.FC<{children:React.ReactNode}> = (props) => {
+const ContextProvider: FC<{ children: React.ReactNode }> = (props) => {
   const [filterItems, setFilterItems] = useState<FilterItemsInterface>({
     birth_date: "",
     exact_age: [],
