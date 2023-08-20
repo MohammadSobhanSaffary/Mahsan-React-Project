@@ -1,11 +1,3 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import { englishDictionry } from "../translations/en";
-import { persianDictionry } from "../translations/fa";
-import Navbar from "./components/Navbar";
-import Table from "./components/Table";
-import { useContext, FC } from "react";
-import { Values, appContext } from "./Context";
 import Forms from "./components/Forms";
 
 const App: FC = () => {
