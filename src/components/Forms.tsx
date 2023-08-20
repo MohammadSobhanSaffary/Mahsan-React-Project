@@ -37,6 +37,7 @@ const Forms: React.FC = () => {
     formState: { errors },
   } = useForm<ValidationSchema>({
     resolver: zodResolver(validationSchema),
+    mode: "onChange",
   });
 
   const submitFunction: SubmitHandler<ValidationSchema> = (data) => {
